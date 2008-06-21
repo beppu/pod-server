@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Pod::Server;
+
+my %opts = (
+  port => 8088,
+);
+Pod::Server->go(%opts);
