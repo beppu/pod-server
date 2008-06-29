@@ -2,15 +2,16 @@ package Pod::Server;
 use base 'Squatting';
 our $VERSION = 1;
 our %config = (
-  background_color     => '#112',
-  foreground_color     => 'wheat',
-  pre_background_color => '#000',
-  pre_foreground_color => '#ccd',
-  link_color           => '#fc4',
-  link_hover_color     => '#fe8',
-  font_size            => '10pt',
-  sidebar              => 'right',
-  first                => 'Squatting',
+  background_color      => '#112',
+  foreground_color      => 'wheat',
+  pre_background_color  => '#000',
+  pre_foreground_color  => '#ccd',
+  code_foreground_color => '#fff',
+  link_color            => '#fc4',
+  link_hover_color      => '#fe8',
+  font_size             => '10pt',
+  sidebar               => 'right',
+  first                 => 'Squatting',
 );
 
 package Pod::Server::Controllers;
@@ -191,7 +192,7 @@ our @V = (
         code {
           font-size: 9pt;
           font-weight: bold;
-          color: #fff;
+          color: $C->{code_foreground_color};
         }
         a {
           color: $C->{link_color};
