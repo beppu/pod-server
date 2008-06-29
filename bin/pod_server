@@ -13,6 +13,8 @@ GetOptions(
   \%Pod::Server::config,
   "background_color|bg=s",
   "foreground_color|fg=s",
+  "pre_background_color|pbg=s",
+  "pre_foreground_color|pfg=s",
   "link_color|l=s",
   "link_hover_color|lh=s",
   "font_size=s",
