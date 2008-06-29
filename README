@@ -1,0 +1,15 @@
+
+  The Ruby people have this nice utility called 
+  
+    gem_server 
+
+  which is a little web server
+  that serves up the documentation
+  for all the locally installed rubygems.
+
+  It's really handy.
+
+  And then I was left wondering,
+  "Why doesn't Perl have something like this???"
+  It's only been 20 fucking years.
+

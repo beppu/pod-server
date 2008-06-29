@@ -3,8 +3,21 @@
 use strict;
 use warnings;
 use Pod::Server;
+use Getopt::Long;
 
 my %opts = (
   port => 8088,
 );
+
+GetOptions(
+  \%Pod::Server::config,
+  "background_color|bg=s",
+  "foreground_color|fg=s",
+  "link_color|l=s",
+  "link_hover_color|lh=s",
+  "font_size=s",
+  "sidebar|s=s",
+  "first|f=s",
+);
+
 Pod::Server->go(%opts);

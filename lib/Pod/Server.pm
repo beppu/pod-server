@@ -1,11 +1,14 @@
 package Pod::Server;
 use base 'Squatting';
+our $VERSION = 1;
 our %config = (
   background_color => '#112',
   foreground_color => 'wheat',
   link_color       => '#fc4',
   link_hover_color => '#fe8',
   font_size        => '10pt',
+  sidebar          => 'right',
+  first            => 'Squatting',
 );
 
 package Pod::Server::Controllers;
@@ -253,9 +256,17 @@ our @V = (
         head(
           title($v->{title})
         ),
-        frameset({ cols => '*,340' },
-          frame({ name => 'pod',  src => R('Pod', 'Squatting') }),
-          frame({ name => 'list', src => R('Home', { base => 'pod' }) }),
+        ($C->{sidebar} eq "right" 
+          ?
+          frameset({ cols => '*,340' },
+            frame({ name => 'pod',  src => R('Pod', $C->{first}) }),
+            frame({ name => 'list', src => R('Home', { base => 'pod' }) }),
+          )
+          :
+          frameset({ cols => '340,*' },
+            frame({ name => 'list', src => R('Home', { base => 'pod' }) }),
+            frame({ name => 'pod',  src => R('Pod', $C->{first}) }),
+          )
         ),
       )->as_HTML;
     },
@@ -299,3 +310,21 @@ our @V = (
 );
 
 1;
+
+__END__
+
+=head1 NAME
+
+Pod::Server - a web server for locally installed perl documentation
+
+=head1 SYNOPSIS
+
+Command Line:
+
+  pod_server
+
+=head1 DESCRIPTION
+
+forthcoming
+
+=cut
