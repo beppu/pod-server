@@ -2,16 +2,16 @@ package Pod::Server;
 use base 'Squatting';
 our $VERSION = 1;
 our %config = (
-  background_color      => '#112',
-  foreground_color      => 'wheat',
-  pre_background_color  => '#000',
-  pre_foreground_color  => '#ccd',
-  code_foreground_color => '#fff',
-  link_color            => '#fc4',
-  link_hover_color      => '#fe8',
-  font_size             => '10pt',
-  sidebar               => 'right',
-  first                 => 'Squatting',
+  background_color         => '#112',
+  foreground_color         => 'wheat',
+  pre_background_color     => '#000',
+  pre_foreground_color     => '#ccd',
+  code_foreground_color    => '#fff',
+  a_foreground_color       => '#fc4',
+  a_hover_foreground_color => '#fe8',
+  font_size                => '10pt',
+  sidebar                  => 'right',
+  first                    => 'Squatting',
 );
 
 package Pod::Server::Controllers;
@@ -34,6 +34,7 @@ our %perl_basepods = map {
 our %perl_modules;
 our @perl_modules;
 sub scan {
+  no warnings;
   for (@INC) {
     next if $_ eq ".";
     my $inc = $_;
@@ -195,11 +196,11 @@ our @V = (
           color: $C->{code_foreground_color};
         }
         a {
-          color: $C->{link_color};
+          color: $C->{a_foreground_color};
           text-decoration: none;
         }
         a:hover {
-          color: $C->{link_hover_color};
+          color: $C->{a_hover_foreground_color};
         }
         div#menu {
           position: fixed;
@@ -228,7 +229,7 @@ our @V = (
         }
         div#pod h1 {
           font-size: 24pt;
-          border-bottom: 2px solid $C->{link_hover_color};
+          border-bottom: 2px solid $C->{a_hover_foreground_color};
         }
         div#pod p {
           line-height: 1.4em;
@@ -328,6 +329,49 @@ Command Line:
 
 =head1 DESCRIPTION
 
-forthcoming
+RTFM just got easier.
+
+=head2 Embedding Pod::Server in Catalyst Apps
+
+Pod::Server is a modular web application that can be embedded into other
+web applications.  Behold, the *POWER* of Squatting!
+
+  hehehehe
+
+=head1 SEE ALSO
+
+L<Squatting>,
+L<Continuity>
+
+=head1 AUTHOR
+
+John BEPPU E<lt>beppu@cpan.orgE<gt>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2008 John BEPPU E<lt>beppu@cpan.orgE<gt>.
+
+=head2 The "MIT" License
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
 
 =cut

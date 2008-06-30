@@ -9,19 +9,66 @@ my %opts = (
   port => 8088,
 );
 
+my $C = \%Pod::Server::config;
+
 GetOptions(
-  \%Pod::Server::config,
+  $C,
   "background_color|bg=s",
   "foreground_color|fg=s",
   "pre_background_color|pbg=s",
   "pre_foreground_color|pfg=s",
   "code_foreground_color|cfg=s",
-  "link_color|l=s",
-  "link_hover_color|lh=s",
+  "a_foreground_color|afg=s",
+  "a_hover_foreground_color|ahfg=s",
   "font_size=s",
   "sidebar|s=s",
   "first|f=s",
+  "port|p=i",
   "help|h",
 );
+
+if ($C->{help}) {
+print qq|Start a web server that serves locally installed perl documentation.
+
+Usage: pod_server [OPTION]...
+
+Options:
+  -p,    --port NUM                  Port for web server (defaults to 8088)
+  --font_size SIZE                   Font size (defaults to '$C->{font_size}') 
+
+  -bg,   --background_color COLOR           (defaults to '$C->{background_color}') 
+  -fg,   --foreground_color COLOR           (defaults to '$C->{foreground_color}') 
+  -pbg,  --pre_background_color COLOR       (defaults to '$C->{pre_background_color}') 
+  -pfg,  --pre_foreground_color COLOR       (defaults to '$C->{pre_foreground_color}') 
+  -cfg,  --code_foreground_color COLOR      (defaults to '$C->{code_foreground_color}') 
+  -afg,  --a_foreground_color COLOR         (defaults to '$C->{a_foreground_color}') 
+  -ahfg, --a_hover_foreground_color COLOR   (defaults to '$C->{a_hover_foreground_color}') 
+  
+  -s, --sidebar POSITION             May be 'left' or 'right' (defaults to '$C->{sidebar}')
+  -f, --first                        First POD you see in framed mode (defaults to '$C->{first}')
+
+  -h, --help                         This help message
+
+Examples:
+
+  Run in "daemonized" mode:
+
+    ( pod_server > /dev/null 2>&1 ) &
+
+  Make people's eyes bleed:
+
+    pod_server -bg red -fg green -pbg white -pfg orange -afg purple -ahfg yellow
+
+  Then comfort them with unoffensive light colors:
+
+    pod_server -bg '#fff' -fg '#333' -pfg '#223' -pbg '#ccf' -cfg '#000' -afg '#46b' -ahfg '#9cf'
+
+|;
+exit 0;
+}
+
+if ($C->{port}) {
+  $opts{port} = $C->{port};
+}
 
 Pod::Server->go(%opts);
