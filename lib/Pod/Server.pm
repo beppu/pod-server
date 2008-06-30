@@ -70,6 +70,26 @@ sub pod_for {
   }
 }
 
+# *.pm takes precedence over *.pod
+sub code_for {
+  for ($_[0]) {
+    return $_ if /\.pm$/;
+    my $pm = $_;
+    $pm =~ s/\.pod$/\.pm/;
+    if (-e $pm) {
+      return $pm;
+    }
+    return $_;
+  }
+}
+
+# cat out a file
+sub cat {
+  my $file = shift;
+  open(CAT, $file) || return;
+  return join('', <CAT>);
+}
+
 our @C = (
 
   C(
@@ -90,6 +110,26 @@ our @C = (
       my ($self) = @_;
       $self->v->{title} = 'Pod::Server';
       $self->render('_frames');
+    }
+  ),
+
+  C(
+    Source => [ '/@source/(.*)' ],
+    get => sub {
+      my ($self, $module) = @_;
+      my $pm_file;
+      if (exists $perl_modules{$module}) {
+        $self->headers->{'Content-Type'} = 'text/plain';
+        $pm_file = code_for $perl_modules{$module};
+        cat $pm_file;
+      } elsif (exists $perl_basepods{$module}) {
+        $self->headers->{'Content-Type'} = 'text/plain';
+        $pm_file = code_for $perl_basepods{$module};
+        cat $pm_file;
+      } else {
+        $v->{title} = "Pod::Server - $pm";
+        $self->render('pod_not_found');
+      }
     }
   ),
 
@@ -118,7 +158,8 @@ our @C = (
         $self->render('pod_not_found');
       }
     }
-  )
+  ),
+
 );
 
 package Pod::Server::Views;
@@ -285,7 +326,9 @@ our @V = (
       $out =~ s{%3A%3A}{/}g;
       $out =~ s/^.*<!-- start doc -->//s;
       $out =~ s/<!-- end doc -->.*$//s;
-      x($out), $self->_possibilities($v);
+      x($out), 
+      $self->_possibilities($v),
+      $self->_source($v);
     },
 
     pod_not_found => sub {
@@ -308,6 +351,12 @@ our @V = (
           )
         } @possibilities
       );
+    },
+
+    _source => sub {
+      my ($self, $v) = @_;
+      hr,
+      h4( a({ href => R('Source', $v->{module} )}, "Source Code for " . Pod::Server::Controllers::code_for($v->{pod_file}) ) );
     }
 
   )
