@@ -9,7 +9,7 @@ my %opts = (
   port => 8088,
 );
 
-my $C = \%Pod::Server::config;
+my $C = \%Pod::Server::CONFIG;
 
 GetOptions(
   $C,

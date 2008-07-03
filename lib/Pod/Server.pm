@@ -1,7 +1,7 @@
 package Pod::Server;
 use base 'Squatting';
 our $VERSION = 1;
-our %config = (
+our %CONFIG = (
   background_color         => '#112',
   foreground_color         => 'wheat',
   pre_background_color     => '#000',
@@ -177,7 +177,7 @@ sub x {
 
 our $JS;
 our $HOME;
-our $C = \%Pod::Server::config;
+our $C = \%Pod::Server::CONFIG;
 
 our @V = (
   V(
