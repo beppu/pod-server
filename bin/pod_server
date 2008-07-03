@@ -33,6 +33,7 @@ print qq|Start a web server that serves locally installed perl documentation.
 Usage: pod_server [OPTION]...
 
 Options:
+
   -p,    --port NUM                  Port for web server (defaults to 8088)
   --font_size SIZE                   Font size (defaults to '$C->{font_size}') 
 
@@ -44,8 +45,11 @@ Options:
   -afg,  --a_foreground_color COLOR         (defaults to '$C->{a_foreground_color}') 
   -ahfg, --a_hover_foreground_color COLOR   (defaults to '$C->{a_hover_foreground_color}') 
   
-  -s, --sidebar POSITION             May be 'left' or 'right' (defaults to '$C->{sidebar}')
-  -f, --first                        First POD you see in framed mode (defaults to '$C->{first}')
+  -s, --sidebar POSITION             May be 'left' or 'right'
+                                     (defaults to '$C->{sidebar}')
+
+  -f, --first                        First POD you see in framed mode
+                                     (defaults to '$C->{first}')
 
   -h, --help                         This help message
 
@@ -55,13 +59,9 @@ Examples:
 
     ( pod_server > /dev/null 2>&1 ) &
 
-  Make people's eyes bleed:
+  Use a light colored theme:
 
-    pod_server -bg red -fg green -pbg white -pfg orange -afg purple -ahfg yellow
-
-  Then comfort them with unoffensive light colors:
-
-    pod_server -bg '#fff' -fg '#333' -pfg '#223' -pbg '#ccf' -cfg '#000' -afg '#46b' -ahfg '#9cf'
+    pod_server -bg '#ffffff' -fg '#222222' -cfg '#222244' -afg '#224488' -ahfg '#3399cc'
 
 |;
 exit 0;
