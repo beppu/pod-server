@@ -1,6 +1,6 @@
 package Pod::Server;
 use base 'Squatting';
-our $VERSION = 1;
+our $VERSION = '1.00';
 our %CONFIG = (
   background_color         => '#112',
   foreground_color         => 'wheat',
@@ -372,25 +372,70 @@ Pod::Server - a web server for locally installed perl documentation
 
 =head1 SYNOPSIS
 
-Command Line:
+Usage for the pod_server script:
 
-  pod_server
+  pod_server [OPTION]...
+
+Examples:
+
+  pod_server --help
+
+  pod_server -bg '#301'
+
+Then, in your browser, visit:
+
+  http://localhost:8088/
+
+How to start up a Continuity-based server manually (via code):
+
+  use Pod::Server 'On::Continuity';
+  Pod::Server->init;
+  Pod::Server->continue(port => 8088);
+
+How to embed Pod::Server into a Catalyst app:
+
+  use Pod::Server 'On::Catalyst';
+  Pod::Server->init;
+  Pod::Server->relocate('/pod');
+  $Pod::Simple::HTML::Perldoc_URL_Prefix = '/pod/';
+  sub pod : Local { Pod::Server->catalyze($_[1]) }
 
 =head1 DESCRIPTION
 
-RTFM just got easier.
+In the Ruby world, there is a utility called C<gem_server> which starts up a
+little web server that serves documentation for all the locally installed
+RubyGems.  When I was coding in Ruby, I found it really useful to know what
+gems I had installed and how to use their various APIs.
 
-=head2 Embedding Pod::Server in Catalyst Apps
+"Why didn't Perl have anything like this?"
 
-Pod::Server is a modular web application that can be embedded into other
-web applications.  Behold, the *POWER* of Squatting!
+Well, apparently it did.  If I had searched through CPAN, I might have found
+L<Pod::Webserver> which does the same thing this module does.
 
-  hehehehe
+However, I didn't know that at the time, so I ended up writing this module.
+At first, its only purpose was to serve as an example L<Squatting> app, but
+it felt useful enough to spin off into its own perl module distribution.
+
+I have no regrets about duplicating effort or reinventing the wheel, because
+Pod::Server has a lot of nice little features that aid usability and readability.
+It is also quite configurable.  To see all the options run either of the following:
+
+  pod_server -h
+
+  squatting Pod::Server --show-config
+
+=head2 My one regret...
+
+Well, OK.  I have one regret.  I didn't know that L<Pod::Simple::Search>
+existed.  I would've used that to build the list of all the POD on the system
+had I known about it sooner than just now (2008-07-06).  This just goes to show
+that it's hard to know what's on CPAN, let alone your own system.  I guess you
+really have to develop the habit of looking.
+
 
 =head1 SEE ALSO
 
-L<Squatting>,
-L<Continuity>
+L<Squatting>, L<Continuity>, L<Pod::Webserver>
 
 =head1 AUTHOR
 

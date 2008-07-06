@@ -48,7 +48,7 @@ Options:
   -s, --sidebar POSITION             May be 'left' or 'right'
                                      (defaults to '$C->{sidebar}')
 
-  -f, --first                        First POD you see in framed mode
+  -f, --first MODULE                 First POD you see in framed mode
                                      (defaults to '$C->{first}')
 
   -h, --help                         This help message
@@ -61,7 +61,7 @@ Examples:
 
   Use a light colored theme:
 
-    pod_server -bg '#ffffff' -fg '#222222' -cfg '#222244' -afg '#99aaff' -ahfg '#3399cc'
+    pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#777' -afg '#48f' -ahfg '#248'
 
 |;
 exit 0;
@@ -71,4 +71,83 @@ if ($C->{port}) {
   $opts{port} = $C->{port};
 }
 
+Pod::Server->init;
 Pod::Server->continue(%opts);
+
+=head1 NAME
+
+pod_server - start a web server that serves locally installed perl docs
+
+=head1 SYNOPSIS
+
+Usage:
+
+  pod_server [OPTION]...
+
+Run in "daemonized" mode:
+
+  ( pod_server > /dev/null 2>&1 ) &
+
+Use a light colored theme:
+
+  pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#777' -afg '#48f' -ahfg '#248'
+
+=head1 DESCRIPTION
+
+This script has been provided to make it easy to start Pod::Server.  It's
+name is a homage to C<gem_server> from the Ruby world.
+
+=head1 OPTIONS
+
+=over 4
+
+=item -p, --port NUM
+
+This is the port that the web server should listen on.
+
+=item --font_size SIZE
+
+This is the font size for the text
+
+=item -bg, --background_color COLOR
+
+=item -fg, --foreground_color COLOR
+
+=item -pbg, --pre_background_color COLOR
+
+=item -pfg, --pre_foreground_color COLOR
+
+=item -cfg, --code_foreground_color COLOR
+
+=item -afg, --a_foreground_color COLOR
+
+=item -ahfg, --a_hover_foreground_color COLOR
+
+I hope all these colors are self-explanatory.  The color argument should
+be expressed in terms that CSS understands.  For example:
+
+  #301
+  #ffffff
+  rgb(128,230,255)
+  blue
+
+=item -s, --sidebar POSITION
+
+When viewing POD in the optional framed mode, you may choose to put the
+sidebar on the 'left' or the 'right'.
+
+=item -f, --first MODULE
+
+When you enter framed mode, you get to see this POD first.
+
+=item -h, --help
+
+Display the useful help message.
+
+=back
+
+=head1 AUTHOR
+
+John BEPPU E<lt>beppu@cpan.orgE<gt>
+
+=cut
