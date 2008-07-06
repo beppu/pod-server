@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Pod::Server;
+use Pod::Server 'On::Continuity';
 use Getopt::Long;
 
 my %opts = (
@@ -71,4 +71,4 @@ if ($C->{port}) {
   $opts{port} = $C->{port};
 }
 
-Pod::Server->go(%opts);
+Pod::Server->continue(%opts);
