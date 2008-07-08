@@ -23,6 +23,7 @@ GetOptions(
   "font_size=s",
   "sidebar|s=s",
   "first|f=s",
+  "title|t=s",
   "port|p=i",
   "help|h",
 );
@@ -35,6 +36,8 @@ Usage: pod_server [OPTION]...
 Options:
 
   -p,    --port NUM                  Port for web server (defaults to 8088)
+  -t,    --title TITLE               Base title for pages (defaults to '$C->{title}')
+
   --font_size SIZE                   Font size (defaults to '$C->{font_size}') 
 
   -bg,   --background_color COLOR           (defaults to '$C->{background_color}') 
@@ -104,6 +107,10 @@ name is a homage to C<gem_server> from the Ruby world.
 =item -p, --port NUM
 
 This is the port that the web server should listen on.
+
+=item -t, --title TITLE
+
+This is the base title of the pages.
 
 =item --font_size SIZE
 

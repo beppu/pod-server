@@ -1,6 +1,6 @@
 package Pod::Server;
 use base 'Squatting';
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 our %CONFIG = (
   background_color         => '#112',
   foreground_color         => 'wheat',
@@ -12,6 +12,7 @@ our %CONFIG = (
   font_size                => '10pt',
   sidebar                  => 'right',
   first                    => 'Squatting',
+  title                    => '#',
 );
 
 package Pod::Server::Controllers;
@@ -96,7 +97,7 @@ our @C = (
     Home => [ '/' ],
     get  => sub {
       my ($self) = @_;
-      $self->v->{title} = 'Pod::Server';
+      $self->v->{title} = $Pod::Server::CONFIG{title};
       if ($self->input->{base}) {
         $self->v->{base} = 'pod';
       }
@@ -108,7 +109,7 @@ our @C = (
     Frames => [ '/@frames' ],
     get    => sub {
       my ($self) = @_;
-      $self->v->{title} = 'Pod::Server';
+      $self->v->{title} = $Pod::Server::CONFIG{title};
       $self->render('_frames');
     }
   ),
@@ -117,15 +118,17 @@ our @C = (
     Source => [ '/@source/(.*)' ],
     get => sub {
       my ($self, $module) = @_;
+      my $v = $self->v;
+      $v->{path} = [ split('/', $module) ];
       my $pm_file;
       if (exists $perl_modules{$module}) {
-        $self->headers->{'Content-Type'} = 'text/plain';
         $pm_file = code_for $perl_modules{$module};
-        cat $pm_file;
+        $v->{code} = cat $pm_file;
+        $self->render('source');
       } elsif (exists $perl_basepods{$module}) {
-        $self->headers->{'Content-Type'} = 'text/plain';
         $pm_file = code_for $perl_basepods{$module};
-        cat $pm_file;
+        $v->{code} = cat $pm_file;
+        $self->render('source');
       } else {
         $v->{title} = "Pod::Server - $pm";
         $self->render('pod_not_found');
@@ -147,14 +150,14 @@ our @C = (
       $v->{pm}     = $pm;
       if (exists $perl_modules{$module}) {
         $v->{pod_file} = pod_for $perl_modules{$module};
-        $v->{title} = "Pod::Server - $pm";
+        $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
         $self->render('pod');
       } elsif (exists $perl_basepods{$module}) {
         $v->{pod_file} = pod_for $perl_basepods{$module};
         $v->{title} = "Pod::Server - $pm";
         $self->render('pod');
       } else {
-        $v->{title} = "Pod::Server - $pm";
+        $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
         $self->render('pod_not_found');
       }
     }
@@ -357,7 +360,13 @@ our @V = (
       my ($self, $v) = @_;
       hr,
       h4( a({ href => R('Source', $v->{module} )}, "Source Code for " . Pod::Server::Controllers::code_for($v->{pod_file}) ) );
-    }
+    },
+
+    source => sub {
+      my ($self, $v) = @_;
+      style("div#pod { width: auto; }"), 
+      pre($v->{code});
+    },
 
   )
 );
