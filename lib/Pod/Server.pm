@@ -1,6 +1,6 @@
 package Pod::Server;
 use base 'Squatting';
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 our %CONFIG = (
   background_color         => '#112',
   foreground_color         => 'wheat',
