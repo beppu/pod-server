@@ -218,68 +218,66 @@ our @V = (
       @breadcrumb;
     },
 
-    _css => sub {
-      qq|
-        body {
-          background: $C->{background_color};
-          color: $C->{foreground_color};
-          font-family: 'Trebuchet MS', sans-serif;
-          font-size: $C->{font_size};
-        }
-        h1, h2, h3, h4 {
-          margin-left: -1em;
-        }
-        pre {
-          font-size: 9pt;
-          background: $C->{pre_background_color};
-          color: $C->{pre_foreground_color};
-        }
-        code {
-          font-size: 9pt;
-          font-weight: bold;
-          color: $C->{code_foreground_color};
-        }
-        a {
-          color: $C->{a_foreground_color};
-          text-decoration: none;
-        }
-        a:hover {
-          color: $C->{a_hover_foreground_color};
-        }
-        div#menu {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          background: #000;
-          color: #fff;
-          opacity: 0.75;
-        }
-        ul#list {
-          margin-left: -6em;
-          list-style: none;
-        }
-        div#pod {
-          width: 580px;
-          margin: 2em 4em 2em 4em;
-        }
-        div#pod pre {
-          padding: 0.5em;
-          border: 1px solid #444;
-          -moz-border-radius-bottomleft: 7px;
-          -moz-border-radius-bottomright: 7px;
-          -moz-border-radius-topleft: 7px;
-          -moz-border-radius-topright: 7px;
-        }
-        div#pod h1 {
-          font-size: 24pt;
-          border-bottom: 2px solid $C->{a_hover_foreground_color};
-        }
-        div#pod p {
-          line-height: 1.4em;
-        }
-      |;
-    },
+    _css => sub {qq|
+      body {
+        background: $C->{background_color};
+        color: $C->{foreground_color};
+        font-family: 'Trebuchet MS', sans-serif;
+        font-size: $C->{font_size};
+      }
+      h1, h2, h3, h4 {
+        margin-left: -1em;
+      }
+      pre {
+        font-size: 9pt;
+        background: $C->{pre_background_color};
+        color: $C->{pre_foreground_color};
+      }
+      code {
+        font-size: 9pt;
+        font-weight: bold;
+        color: $C->{code_foreground_color};
+      }
+      a {
+        color: $C->{a_foreground_color};
+        text-decoration: none;
+      }
+      a:hover {
+        color: $C->{a_hover_foreground_color};
+      }
+      div#menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #000;
+        color: #fff;
+        opacity: 0.75;
+      }
+      ul#list {
+        margin-left: -6em;
+        list-style: none;
+      }
+      div#pod {
+        width: 580px;
+        margin: 2em 4em 2em 4em;
+      }
+      div#pod pre {
+        padding: 0.5em;
+        border: 1px solid #444;
+        -moz-border-radius-bottomleft: 7px;
+        -moz-border-radius-bottomright: 7px;
+        -moz-border-radius-topleft: 7px;
+        -moz-border-radius-topright: 7px;
+      }
+      div#pod h1 {
+        font-size: 24pt;
+        border-bottom: 2px solid $C->{a_hover_foreground_color};
+      }
+      div#pod p {
+        line-height: 1.4em;
+      }
+    |},
 
     home => sub {
       $HOME ||= div(
@@ -359,7 +357,10 @@ our @V = (
     _source => sub {
       my ($self, $v) = @_;
       hr,
-      h4( a({ href => R('Source', $v->{module} )}, "Source Code for " . Pod::Server::Controllers::code_for($v->{pod_file}) ) );
+      h4(a({ href => R('Source', $v->{module} )}, 
+        "Source Code for " . 
+        Pod::Server::Controllers::code_for($v->{pod_file}) 
+      ));
     },
 
     source => sub {
