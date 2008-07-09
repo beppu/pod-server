@@ -427,11 +427,13 @@ it felt useful enough to spin off into its own perl module distribution.
 
 I have no regrets about duplicating effort or reinventing the wheel, because
 Pod::Server has a lot of nice little features that aid usability and readability.
-It is also quite configurable.  To see all the options run either of the following:
+It is also quite configurable.  To see all the options run any of the following:
 
   pod_server -h
 
   squatting Pod::Server --show-config
+
+  squatting Pod::Server --show-config | perltidy
 
 =head2 My one regret...
 
