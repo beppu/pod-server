@@ -379,7 +379,7 @@ our @V = (
     _vim_syntax_css => sub {qq|
       .synComment    { color: #00ccff }
       .synConstant   { color: #00ffcc }
-      .synIdentifier { color: #008b8b }
+      .synIdentifier { color: #009b9b }
       .synStatement  { color: #ffcc22 ; font-weight: bold }
       .synPreProc    { color: #88ffcc }
       .synType       { color: #2e8b57 ; font-weight: bold }

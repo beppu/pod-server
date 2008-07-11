@@ -69,7 +69,7 @@ Examples:
 
   Use a light colored theme:
 
-    pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#777' -afg '#48f' -ahfg '#248'
+    pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#223' -afg '#48f' -ahfg '#248'
 
 |;
 exit 0;
