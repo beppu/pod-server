@@ -449,6 +449,12 @@ really have to develop the habit of looking.
 
 L<Squatting>, L<Continuity>, L<Pod::Webserver>
 
+=head2 Pod::Server Source Code
+
+The source code is available at:
+
+  http://github.com/beppu/pod-server/tree/master
+
 =head1 AUTHOR
 
 John BEPPU E<lt>beppu@cpan.orgE<gt>
