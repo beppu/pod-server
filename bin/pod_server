@@ -23,6 +23,7 @@ GetOptions(
   "font_size=s",
   "sidebar|s=s",
   "first|f=s",
+  "vim|v=s",
   "title|t=s",
   "port|p=i",
   "help|h",
@@ -53,6 +54,10 @@ Options:
 
   -f, --first MODULE                 First POD you see in framed mode
                                      (defaults to '$C->{first}')
+
+  -v, --vim BOOLEAN                  Syntax highlight source code with vim?
+                                     Set to "0" to disable.
+                                     (defaults to '$C->{vim}')
 
   -h, --help                         This help message
 
@@ -146,6 +151,11 @@ sidebar on the 'left' or the 'right'.
 =item -f, --first MODULE
 
 When you enter framed mode, you get to see this POD first.
+
+=item -v, --vim BOOLEAN
+
+If this setting is true, vim will be used to syntax highlight the
+source code view.  Set this to "0" to disable vim's syntax highlighting.
 
 =item -h, --help
 

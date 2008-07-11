@@ -1,6 +1,7 @@
 package Pod::Server;
 use base 'Squatting';
-our $VERSION = '1.02';
+use File::Which;
+our $VERSION = '1.03';
 our %CONFIG = (
   background_color         => '#112',
   foreground_color         => 'wheat',
@@ -13,6 +14,7 @@ our %CONFIG = (
   sidebar                  => 'right',
   first                    => 'Squatting',
   title                    => '#',
+  vim                      => which('vim'),
 );
 
 package Pod::Server::Controllers;
@@ -122,12 +124,22 @@ our @C = (
       $v->{path} = [ split('/', $module) ];
       my $pm_file;
       if (exists $perl_modules{$module}) {
-        $pm_file = code_for $perl_modules{$module};
-        $v->{code} = cat $pm_file;
+        $v->{file} = code_for $perl_modules{$module};
+        if ($Pod::Server::CONFIG{vim}) {
+          my $vim    = Text::VimColor->new(file => $v->{file});
+          $v->{code} = $vim->html;
+        } else {
+          $v->{code} = cat $v->{file};
+        }
         $self->render('source');
       } elsif (exists $perl_basepods{$module}) {
-        $pm_file = code_for $perl_basepods{$module};
-        $v->{code} = cat $pm_file;
+        $v->{file} = code_for $perl_basepods{$module};
+        if ($Pod::Server::CONFIG{vim}) {
+          my $vim    = Text::VimColor->new(file => $v->{file});
+          $v->{code} = $vim->html
+        } else {
+          $v->{code} = cat $v->{file};
+        }
         $self->render('source');
       } else {
         $v->{title} = "Pod::Server - $pm";
@@ -171,6 +183,7 @@ use Data::Dump 'pp';
 use HTML::AsSubs;
 use Pod::Simple;
 use Pod::Simple::HTML;
+use Text::VimColor;
 $Pod::Simple::HTML::Perldoc_URL_Prefix = '/';
 
 # the ~literal pseudo-element -- don't entity escape this content
@@ -363,10 +376,29 @@ our @V = (
       ));
     },
 
+    _vim_syntax_css => sub {qq|
+      .synComment    { color: #00ccff }
+      .synConstant   { color: #ff00ff }
+      .synIdentifier { color: #008b8b }
+      .synStatement  { color: #ffcc22 ; font-weight: bold }
+      .synPreProc    { color: #a020f0 }
+      .synType       { color: #2e8b57 ; font-weight: bold }
+      .synSpecial    { color: #6a5acd }
+      .synUnderlined { color: #000000 ; text-decoration: underline }
+      .synError      { color: #ffffff ; background: #ff0000 none }
+      .synTodo       { color: #0000ff ; background: #ffff00 none }
+    |},
+
     source => sub {
       my ($self, $v) = @_;
       style("div#pod { width: auto; }"), 
-      pre($v->{code});
+      ($C->{vim}
+        ?
+        ( style(x($self->_vim_syntax_css)), 
+          pre(x($v->{code})) )
+        :
+        ( pre($v->{code}) )
+      )
     },
 
   )
