@@ -15,6 +15,18 @@ our %CONFIG = (
   first                    => 'Squatting',
   title                    => '#',
   vim                      => which('vim'),
+  vim_comment              => '#0cf',
+  vim_constant             => '#0fc',
+  vim_identifier           => '#0aa',
+  vim_statement            => '#fc2',
+  vim_preproc              => '#8fc',
+  vim_type                 => '#2e8b57',
+  vim_special              => '#6a5acd',
+  vim_underlined           => '#fff',
+  vim_error_bg             => '#f00',
+  vim_error_fg             => '#fff',
+  vim_todo_bg              => '#fc2',
+  vim_todo_fg              => '#222',
 );
 
 package Pod::Server::Controllers;
@@ -377,16 +389,16 @@ our @V = (
     },
 
     _vim_syntax_css => sub {qq|
-      .synComment    { color: #00ccff }
-      .synConstant   { color: #00ffcc }
-      .synIdentifier { color: #009b9b }
-      .synStatement  { color: #ffcc22 ; font-weight: bold }
-      .synPreProc    { color: #88ffcc }
-      .synType       { color: #2e8b57 ; font-weight: bold }
-      .synSpecial    { color: #6a5acd }
-      .synUnderlined { color: #000000 ; text-decoration: underline }
-      .synError      { color: #ffffff ; background: #ff0000 none }
-      .synTodo       { color: #0000ff ; background: #ffff00 none }
+      .synComment    { color: $C->{vim_comment} }
+      .synConstant   { color: $C->{vim_constant} }
+      .synIdentifier { color: $C->{vim_identifier} }
+      .synStatement  { color: $C->{vim_statement} ; font-weight: bold }
+      .synPreProc    { color: $C->{vim_preproc} }
+      .synType       { color: $C->{vim_type} ; font-weight: bold }
+      .synSpecial    { color: $C->{vim_special} }
+      .synUnderlined { color: $C->{vim_underlined} ; text-decoration: underline }
+      .synError      { color: $C->{vim_error_fg} ; background: $C->{vim_error_bg} none }
+      .synTodo       { color: $C->{vim_todo_fg} ; background: $C->{vim_todo_bg} none }
     |},
 
     source => sub {

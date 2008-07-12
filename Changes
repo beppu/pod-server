@@ -1,5 +1,5 @@
 1.04 (unreleased)
-  * Make vim syntax highlighting colors configurable
+  - Made vim syntax highlighting colors configurable
 
 1.03
   - Mentioned git repository at github.com in POD

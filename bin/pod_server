@@ -24,6 +24,18 @@ GetOptions(
   "sidebar|s=s",
   "first|f=s",
   "vim|v=s",
+  "vim_comment=s",
+  "vim_constant=s",
+  "vim_identifier=s",
+  "vim_statement=s",
+  "vim_preproc=s",
+  "vim_type=s",
+  "vim_special=s",
+  "vim_underlined=s",
+  "vim_error_bg=s",
+  "vim_error_fg=s",
+  "vim_todo_bg=s",
+  "vim_todo_fg=s",
   "title|t=s",
   "port|p=i",
   "help|h",
@@ -48,7 +60,20 @@ Options:
   -cfg,  --code_foreground_color COLOR      (defaults to '$C->{code_foreground_color}') 
   -afg,  --a_foreground_color COLOR         (defaults to '$C->{a_foreground_color}') 
   -ahfg, --a_hover_foreground_color COLOR   (defaults to '$C->{a_hover_foreground_color}') 
-  
+
+  --vim_comment COLOR                (defaults to '$C->{vim_comment}')
+  --vim_constant COLOR               (defaults to '$C->{vim_constant}')
+  --vim_identifier COLOR             (defaults to '$C->{vim_identifier}')
+  --vim_statement COLOR              (defaults to '$C->{vim_statement}')
+  --vim_preproc COLOR                (defaults to '$C->{vim_preproc}')
+  --vim_type COLOR                   (defaults to '$C->{vim_type}')
+  --vim_special COLOR                (defaults to '$C->{vim_special}')
+  --vim_underlined COLOR             (defaults to '$C->{vim_underlined}')
+  --vim_error_bg COLOR               (defaults to '$C->{vim_error_bg}')
+  --vim_error_fg COLOR               (defaults to '$C->{vim_error_fg}')
+  --vim_todo_bg COLOR                (defaults to '$C->{vim_todo_bg}')
+  --vim_todo_fg COLOR                (defaults to '$C->{vim_todo_fg}')
+
   -s, --sidebar POSITION             May be 'left' or 'right'
                                      (defaults to '$C->{sidebar}')
 
@@ -70,6 +95,10 @@ Examples:
   Use a light colored theme:
 
     pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#223' -afg '#48f' -ahfg '#248'
+
+  Use a red theme:
+
+    pod_server -bg '#100' -pbg '#211' -afg '#f44' -ahfg '#fcc'
 
 |;
 exit 0;
@@ -98,7 +127,11 @@ Run in "daemonized" mode:
 
 Use a light colored theme:
 
-  pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#777' -afg '#48f' -ahfg '#248'
+  pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#223' -afg '#48f' -ahfg '#248'
+
+Use a red theme:
+
+  pod_server -bg '#100' -pbg '#211' -afg '#f44' -ahfg '#fcc'
 
 =head1 DESCRIPTION
 
@@ -134,6 +167,30 @@ This is the font size for the text
 =item -afg, --a_foreground_color COLOR
 
 =item -ahfg, --a_hover_foreground_color COLOR
+
+=item --vim_comment COLOR
+
+=item --vim_constant COLOR
+
+=item --vim_identifier COLOR
+
+=item --vim_statement COLOR
+
+=item --vim_preproc COLOR
+
+=item --vim_type COLOR
+
+=item --vim_special COLOR
+
+=item --vim_underlined COLOR
+
+=item --vim_error_bg COLOR
+
+=item --vim_error_fg COLOR
+
+=item --vim_todo_bg COLOR
+
+=item --vim_todo_fg COLOR
 
 I hope all these colors are self-explanatory.  The color argument should
 be expressed in terms that CSS understands.  For example:
