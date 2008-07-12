@@ -133,8 +133,10 @@ our @C = (
     get => sub {
       my ($self, $module) = @_;
       my $v = $self->v;
-      $v->{path} = [ split('/', $module) ];
+      my $pm = $module; $pm =~ s{/}{::}g;
       my $pm_file;
+      $v->{path} = [ split('/', $module) ];
+      $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
       if (exists $perl_modules{$module}) {
         $v->{file} = code_for $perl_modules{$module};
         if ($Pod::Server::CONFIG{vim}) {
@@ -154,7 +156,6 @@ our @C = (
         }
         $self->render('source');
       } else {
-        $v->{title} = "Pod::Server - $pm";
         $self->render('pod_not_found');
       }
     }
@@ -461,7 +462,7 @@ little web server that serves documentation for all the locally installed
 RubyGems.  When I was coding in Ruby, I found it really useful to know what
 gems I had installed and how to use their various APIs.
 
-"Why didn't Perl have anything like this?"
+B<"Why didn't Perl have anything like this?">
 
 Well, apparently it did.  If I had searched through CPAN, I might have found
 L<Pod::Webserver> which does the same thing this module does.
@@ -478,7 +479,7 @@ It is also quite configurable.  To see all the options run any of the following:
 
   squatting Pod::Server --show-config
 
-  squatting Pod::Server --show-config | perltidy
+  squatting Pod::Server --show-config | perltidy -i 4
 
 =head2 My one regret...
 

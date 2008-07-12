@@ -89,15 +89,12 @@ Options:
 Examples:
 
   Run in "daemonized" mode:
-
     ( pod_server > /dev/null 2>&1 ) &
 
   Use a light colored theme:
-
     pod_server -bg '#fff' -fg '#222' -cfg '#224' -pbg '#223' -afg '#48f' -ahfg '#248'
 
   Use a red theme:
-
     pod_server -bg '#100' -pbg '#211' -afg '#f44' -ahfg '#fcc'
 
 |;

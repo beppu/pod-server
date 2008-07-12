@@ -1,5 +1,6 @@
 1.04 (unreleased)
   - Made vim syntax highlighting colors configurable
+  - Made sure page title was set in source view
 
 1.03
   - Mentioned git repository at github.com in POD
