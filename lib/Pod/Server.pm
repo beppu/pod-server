@@ -3,30 +3,30 @@ use base 'Squatting';
 use File::Which;
 our $VERSION = '1.04';
 our %CONFIG = (
-  background_color         => '#112',
-  foreground_color         => 'wheat',
-  pre_background_color     => '#000',
-  pre_foreground_color     => '#ccd',
-  code_foreground_color    => '#fff',
-  a_foreground_color       => '#fc4',
-  a_hover_foreground_color => '#fe8',
-  font_size                => '10pt',
-  sidebar                  => 'right',
-  first                    => 'Squatting',
-  title                    => '#',
-  vim                      => which('vim'),
-  vim_comment              => '#0cf',
-  vim_constant             => '#0fc',
-  vim_identifier           => '#0aa',
-  vim_statement            => '#fc2',
-  vim_preproc              => '#8fc',
-  vim_type                 => '#2e8b57',
-  vim_special              => '#6a5acd',
-  vim_underlined           => '#fff',
-  vim_error_bg             => '#f00',
-  vim_error_fg             => '#fff',
-  vim_todo_bg              => '#fc2',
-  vim_todo_fg              => '#222',
+  background_color          => '#112',
+  foreground_color          => 'wheat',
+  pre_background_color      => '#000',
+  pre_foreground_color      => '#ccd',
+  code_foreground_color     => '#fff',
+  a_foreground_color        => '#fc4',
+  a_hover_foreground_color  => '#fe8',
+  font_size                 => '10pt',
+  sidebar                   => 'right',
+  first                     => 'Squatting',
+  title                     => '#',
+  vim                       => which('vim'),
+  vim_comment               => '#0cf',
+  vim_constant              => '#0fc',
+  vim_identifier            => '#0aa',
+  vim_statement             => '#fc2',
+  vim_preproc               => '#8fc',
+  vim_type                  => '#2e8b57',
+  vim_special               => '#6a5acd',
+  vim_underlined            => '#fff',
+  vim_error_bg              => '#f00',
+  vim_error_fg              => '#fff',
+  vim_todo_bg               => '#fc2',
+  vim_todo_fg               => '#222',
 );
 
 package Pod::Server::Controllers;
@@ -498,7 +498,7 @@ L<Squatting>, L<Continuity>, L<Pod::Webserver>
 
 The source code is available at:
 
-  http://github.com/beppu/pod-server/tree/master
+L<http://github.com/beppu/pod-server/tree/master>
 
 =head1 AUTHOR
 
