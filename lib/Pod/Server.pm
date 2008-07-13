@@ -393,13 +393,13 @@ our @V = (
       .synComment    { color: $C->{vim_comment} }
       .synConstant   { color: $C->{vim_constant} }
       .synIdentifier { color: $C->{vim_identifier} }
-      .synStatement  { color: $C->{vim_statement} ; font-weight: bold }
+      .synStatement  { color: $C->{vim_statement}  ; font-weight: bold; }
       .synPreProc    { color: $C->{vim_preproc} }
-      .synType       { color: $C->{vim_type} ; font-weight: bold }
+      .synType       { color: $C->{vim_type}       ; font-weight: bold; }
       .synSpecial    { color: $C->{vim_special} }
-      .synUnderlined { color: $C->{vim_underlined} ; text-decoration: underline }
-      .synError      { color: $C->{vim_error_fg} ; background: $C->{vim_error_bg} none }
-      .synTodo       { color: $C->{vim_todo_fg} ; background: $C->{vim_todo_bg} none }
+      .synUnderlined { color: $C->{vim_underlined} ; text-decoration: underline; }
+      .synError      { color: $C->{vim_error_fg}   ; background: $C->{vim_error_bg}; }
+      .synTodo       { color: $C->{vim_todo_fg}    ; background: $C->{vim_todo_bg};  }
     |},
 
     source => sub {
