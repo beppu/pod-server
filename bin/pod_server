@@ -74,7 +74,7 @@ Options:
   --vim_todo_bg COLOR                (defaults to '$C->{vim_todo_bg}')
   --vim_todo_fg COLOR                (defaults to '$C->{vim_todo_fg}')
 
-  -s, --sidebar POSITION             May be 'left' or 'right'
+  -s, --sidebar POSITION             Sidebar on 'left' or 'right'?
                                      (defaults to '$C->{sidebar}')
 
   -f, --first MODULE                 First POD you see in framed mode
