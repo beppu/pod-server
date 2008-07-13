@@ -1,4 +1,4 @@
-1.04 (unreleased)
+1.04
   - Made vim syntax highlighting colors configurable
   - Made sure page title was set in source view
 
