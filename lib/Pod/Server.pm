@@ -29,10 +29,17 @@ our %CONFIG = (
   vim_todo_fg               => '#222',
 );
 
+sub init {
+  my $app = shift;
+  Pod::Server::Controllers::scan();
+  $app->next::method;
+}
+
 package Pod::Server::Controllers;
 use Squatting ':controllers';
 use File::Basename;
 use File::Find;
+use File::Which;
 use Config;
 
 # skip files we've already seen
@@ -40,16 +47,34 @@ my %already_seen;
 
 # figure out where all(?) our pod is located
 # (loosely based on zsh's _perl_basepods and _perl_modules)
-our %perl_basepods = map {
-  my ($file, $path, $suffix) = fileparse($_, ".pod");
-  $already_seen{$_} = 1;
-  ($file => $_);
-} glob "$Config{installprivlib}/pod/*.pod";
+our %perl_basepods;
+
+our %perl_programs;
+our @perl_programs;
 
 our %perl_modules;
 our @perl_modules;
 sub scan {
   no warnings;
+
+  %perl_basepods = map {
+    my ($file, $path, $suffix) = fileparse($_, ".pod");
+    $already_seen{$_} = 1;
+    ($file => $_);
+  } glob "$Config{installprivlib}/pod/*.pod";
+
+  if ($Config{man1ext} ne "1") {
+    %perl_programs = map {
+      my ($file, $path, $suffix) = fileparse($_, qr/\.$Config{man1ext}.*$/);
+      $already_seen{$_} = 1;
+      ("$file" => which($file) || $_);
+    } ( 
+      glob("$Config{installman1dir}/*.$Config{man1ext}*"),
+      glob("$Config{installsiteman1dir}/*.$Config{man1ext}*"),
+      glob("$Config{installvendorman1dir}/*.$Config{man1ext}*")
+    );
+  }
+
   for (@INC) {
     next if $_ eq ".";
     my $inc = $_;
@@ -66,10 +91,10 @@ sub scan {
     };
     find({ wanted => $pm_or_pod, follow_fast => 1 }, $_);
   }
-  my %h = map { $_ => 1 } ( keys %perl_modules, keys %perl_basepods );
-  @perl_modules = sort keys %h;
+  my %h = map { $_ => 1 } ( keys %perl_modules, keys %perl_basepods);
+  @perl_modules  = sort keys %h;
+  @perl_programs = sort keys %perl_programs;
 }
-scan;
 %already_seen = ();
 
 # *.pod takes precedence over *.pm
@@ -155,6 +180,15 @@ our @C = (
           $v->{code} = cat $v->{file};
         }
         $self->render('source');
+      } elsif (exists $perl_programs{$module}) {
+        $v->{file} = $perl_programs{$module};
+        if ($Pod::Server::CONFIG{vim}) {
+          my $vim    = Text::VimColor->new(file => $v->{file});
+          $v->{code} = $vim->html
+        } else {
+          $v->{code} = cat $v->{file};
+        }
+        $self->render('source');
       } else {
         $self->render('pod_not_found');
       }
@@ -179,7 +213,11 @@ our @C = (
         $self->render('pod');
       } elsif (exists $perl_basepods{$module}) {
         $v->{pod_file} = pod_for $perl_basepods{$module};
-        $v->{title} = "Pod::Server - $pm";
+        $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
+        $self->render('pod');
+      } elsif (exists $perl_programs{$module}) {
+        $v->{pod_file} = $perl_programs{$module};
+        $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
         $self->render('pod');
       } else {
         $v->{title} = "$Pod::Server::CONFIG{title} - $pm";
@@ -254,6 +292,10 @@ our @V = (
       h1, h2, h3, h4 {
         margin-left: -1em;
       }
+      em {
+        padding: 0.25em;
+        font-weight: bold;
+      }
       pre {
         font-size: 9pt;
         background: $C->{pre_background_color};
@@ -311,13 +353,24 @@ our @V = (
         em(" | "),
         a({ href => R(Frames), target => '_top' }, "frames"),
         ul({ id => 'list' },
-          map {
-            my $pm = $_;
-            $pm =~ s{/}{::}g;
-            li(
-              a({ href => R('Pod', $_) }, $pm )
-            )
-          } (sort @perl_modules)
+          li(em(">> Modules <<")),
+          (
+            map {
+              my $pm = $_;
+              $pm =~ s{/}{::}g;
+              li(
+                a({ href => R('Pod', $_) }, $pm )
+              )
+            } (sort @perl_modules)
+          ),
+          li(em(">> Executables <<")),
+          (
+            map {
+              li(
+                a({ href => R('Pod', $_) }, $_ )
+              )
+            } (sort @perl_programs),
+          )
         )
       );
     },
@@ -369,6 +422,7 @@ our @V = (
     _possibilities => sub {
       my ($self, $v) = @_;
       my @possibilities = grep { /^$v->{module}/ } @perl_modules;
+      @possibilities    = grep { /^$v->{module}/ } @perl_programs if(not(@possibilities));
       my $colon = sub { my $x = shift; $x =~ s{/}{::}g; $x };
       hr,
       ul(
