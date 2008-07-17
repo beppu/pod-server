@@ -1,4 +1,4 @@
-1.05 (unreleased)
+1.05
   - Defer scanning for POD until init is called.
   - Scan for binaries installed by module distributions, as well.
 
@@ -10,7 +10,7 @@
   - Mentioned git repository at github.com in POD
   - Added vim syntax highlighting for source code view
 
-1.02
+1.02 (accidentally skipped release)
   - Added a Changes file
 
 1.01
