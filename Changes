@@ -1,3 +1,7 @@
+1.05 (unreleased)
+  * Defer scanning for POD until init is called.
+  * Scan for binaries installed by module distributions, as well.
+
 1.04
   - Made vim syntax highlighting colors configurable
   - Made sure page title was set in source view
