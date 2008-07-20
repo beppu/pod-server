@@ -405,7 +405,7 @@ our @V = (
       $pod->parse_file($v->{pod_file});
       $out =~ s/^.*<!-- start doc -->//s;
       $out =~ s/<!-- end doc -->.*$//s;
-      $out =~ s/^(.*%3A%3A.*)$/my $x = $1; ($x =~ m{indexItem}) ? $x : $x =~ s{%3A%3A}{\/}g; $x/gme;
+      $out =~ s/^(.*%3A%3A.*)$/my $x = $1; ($x =~ m{indexItem}) ? 1 : $x =~ s{%3A%3A}{\/}g; $x/gme;
       (
         x($out), 
         $self->_possibilities($v),
