@@ -403,14 +403,12 @@ our @V = (
       $pod->index(1);
       $pod->output_string($out);
       $pod->parse_file($v->{pod_file});
+      $out =~ s{%3A%3A}{/}g;
       $out =~ s/^.*<!-- start doc -->//s;
       $out =~ s/<!-- end doc -->.*$//s;
-      $out =~ s/^(.*%3A%3A.*)$/my $x = $1; ($x =~ m{indexItem}) ? $x : $x =~ s{%3A%3A}{\/}g; $x/gme;
-      (
-        x($out),
-        $self->_possibilities($v),
-        $self->_source($v),
-      );
+      x($out), 
+      $self->_possibilities($v),
+      $self->_source($v);
     },
 
     pod_not_found => sub {
@@ -446,14 +444,14 @@ our @V = (
     },
 
     _vim_syntax_css => sub {qq|
-      .synComment    { color: $C->{vim_comment}    }
-      .synConstant   { color: $C->{vim_constant}   }
+      .synComment    { color: $C->{vim_comment} }
+      .synConstant   { color: $C->{vim_constant} }
       .synIdentifier { color: $C->{vim_identifier} }
       .synStatement  { color: $C->{vim_statement}  ; font-weight: bold; }
-      .synPreProc    { color: $C->{vim_preproc}    }
+      .synPreProc    { color: $C->{vim_preproc} }
       .synType       { color: $C->{vim_type}       ; font-weight: bold; }
-      .synSpecial    { color: $C->{vim_special}    }
-      .synUnderlined { color: $C->{vim_underlined} ; text-decoration: underline;     }
+      .synSpecial    { color: $C->{vim_special} }
+      .synUnderlined { color: $C->{vim_underlined} ; text-decoration: underline; }
       .synError      { color: $C->{vim_error_fg}   ; background: $C->{vim_error_bg}; }
       .synTodo       { color: $C->{vim_todo_fg}    ; background: $C->{vim_todo_bg};  }
     |},
