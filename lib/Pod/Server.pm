@@ -403,12 +403,14 @@ our @V = (
       $pod->index(1);
       $pod->output_string($out);
       $pod->parse_file($v->{pod_file});
-      $out =~ s{%3A%3A}{/}g;
       $out =~ s/^.*<!-- start doc -->//s;
       $out =~ s/<!-- end doc -->.*$//s;
-      x($out), 
-      $self->_possibilities($v),
-      $self->_source($v);
+      $out =~ s/^(.*%3A%3A.*)$/my $x = $1; ($x =~ m{indexItem}) ? $x : $x =~ s{%3A%3A}{\/}g; $x/gme;
+      (
+        x($out), 
+        $self->_possibilities($v),
+        $self->_source($v),
+      );
     },
 
     pod_not_found => sub {
