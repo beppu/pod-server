@@ -1,3 +1,8 @@
+1.06
+  - Fixed the index -> body %3A%3A linking error
+  - updated the README a tiny bit
+  - made compatible with Squatting 0.50
+
 1.05
   - Defer scanning for POD until init is called.
   - Scan for binaries installed by module distributions, as well.

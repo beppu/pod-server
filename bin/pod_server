@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Pod::Server 'On::Continuity';
+use Pod::Server 'With::AccessTrace', 'On::Continuity';
 use Getopt::Long;
 
 my %opts = (
