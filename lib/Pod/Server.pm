@@ -521,11 +521,14 @@ gems I had installed and how to use their various APIs.
 B<"Why didn't Perl have anything like this?">
 
 Well, apparently it did.  If I had searched through CPAN, I might have found
-L<Pod::Webserver> which does the same thing this module does.
+L<Pod::Webserver> which does the same thing this module does.  After more
+searching, I might have discovered L<Pod::POM::Web>.  And then just recently,
+L<Pod::Browser> was uploaded to CPAN.  (It's getting kinda crowded here.)
 
-However, I didn't know that at the time, so I ended up writing this module.
-At first, its only purpose was to serve as an example L<Squatting> app, but
-it felt useful enough to spin off into its own perl module distribution.
+However, I didn't know any of this at the time, so I ended up writing this
+module.  At first, its only purpose was to serve as an example L<Squatting>
+app, but it felt useful enough to spin off into its own perl module
+distribution.
 
 I have no regrets about duplicating effort or reinventing the wheel, because
 Pod::Server has a lot of nice little features that aid usability and readability.
@@ -548,7 +551,8 @@ really have to develop the habit of looking.
 
 =head1 SEE ALSO
 
-L<Squatting>, L<Continuity>, L<Pod::Webserver>
+L<Squatting>, L<Continuity>, L<Pod::Webserver>, L<Pod::POM::Web>,
+L<Pod::Browser>
 
 =head2 Pod::Server Source Code
 
