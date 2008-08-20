@@ -1,3 +1,7 @@
+1.07 (unreleased)
+  - mentioned other expressions of the pod web server idea
+    that I've become aware of.
+
 1.06
   - Fixed the index -> body %3A%3A linking error
   - updated the README a tiny bit
