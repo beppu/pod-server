@@ -1,6 +1,9 @@
-1.07 (unreleased)
+1.07
   - mentioned other expressions of the pod web server idea
     that I've become aware of.
+  - enabled strict and warnings
+  - pass follow_symlinks => 2 to File::Find.
+    Doing so makes ubuntu's mod_perl 2 complain less.
 
 1.06
   - Fixed the index -> body %3A%3A linking error
