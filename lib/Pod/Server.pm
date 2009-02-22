@@ -1,4 +1,6 @@
 package Pod::Server;
+use strict;
+use warnings;
 use base 'Squatting';
 use File::Which;
 our $VERSION = '1.06';
@@ -36,6 +38,8 @@ sub init {
 }
 
 package Pod::Server::Controllers;
+use strict;
+use warnings;
 use Squatting ':controllers';
 use File::Basename;
 use File::Find;
@@ -80,16 +84,16 @@ sub scan {
     my $inc = $_;
     my $pm_or_pod = sub {
       my $m = $File::Find::name;
-      next if -d $m;
-      next unless /\.(pm|pod)$/;
-      next if $already_seen{$m};
+      return if -d $m;
+      return unless /\.(pm|pod)$/;
+      return if $already_seen{$m};
       $already_seen{$m} = 1;
       $m =~ s/$inc//;
       $m =~ s/\.\w*$//;
       $m =~ s{^/}{};
       $perl_modules{$m} = $File::Find::name;
     };
-    find({ wanted => $pm_or_pod, follow_fast => 1 }, $_);
+    find({ wanted => $pm_or_pod, follow_fast => 1, follow_skip => 2 }, $_);
   }
   my %h = map { $_ => 1 } ( keys %perl_modules, keys %perl_basepods);
   @perl_modules  = sort keys %h;
@@ -229,6 +233,8 @@ our @C = (
 );
 
 package Pod::Server::Views;
+use strict;
+use warnings;
 use Squatting ':views';
 use Data::Dump 'pp';
 use HTML::AsSubs;
@@ -349,9 +355,9 @@ our @V = (
 
     home => sub {
       $HOME ||= div(
-        a({ href => R(Home),   target => '_top' }, "no frames"),
+        a({ href => R('Home'),   target => '_top' }, "no frames"),
         em(" | "),
-        a({ href => R(Frames), target => '_top' }, "frames"),
+        a({ href => R('Frames'), target => '_top' }, "frames"),
         ul({ id => 'list' },
           li(em(">> Modules <<")),
           (
