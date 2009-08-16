@@ -1,3 +1,6 @@
+1.08
+  - Made Text::VimColor optional
+
 1.07
   - mentioned other expressions of the pod web server idea
     that I've become aware of.

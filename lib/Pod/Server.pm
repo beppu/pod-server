@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Squatting';
 use File::Which;
-our $VERSION = '1.07';
+our $VERSION = '1.08';
 our %CONFIG = (
   background_color          => '#112',
   foreground_color          => 'wheat',
