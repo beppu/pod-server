@@ -34,6 +34,10 @@ our %CONFIG = (
 sub init {
   my $app = shift;
   Pod::Server::Controllers::scan();
+  my $have_vim = eval { require Text::VimColor };
+  if (not $have_vim) {
+    $CONFIG{vim} = undef;
+  }
   $app->next::method;
 }
 
@@ -240,7 +244,6 @@ use Data::Dump 'pp';
 use HTML::AsSubs;
 use Pod::Simple;
 use Pod::Simple::HTML;
-use Text::VimColor;
 $Pod::Simple::HTML::Perldoc_URL_Prefix = '/';
 
 # the ~literal pseudo-element -- don't entity escape this content
