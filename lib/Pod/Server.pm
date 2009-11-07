@@ -307,6 +307,7 @@ our @V = (
       }
       pre {
         font-size: 9pt;
+        font-family: "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
         background: $C->{pre_background_color};
         color: $C->{pre_foreground_color};
       }
