@@ -1,3 +1,6 @@
+1.10 Tue Apr 27 14:17:24 PDT 2010
+  - Make sure File::Which is used safely and correctly (thanks to Terrence Brannon)
+
 1.09
   - changed default font for verbatim (code block) sections
 
