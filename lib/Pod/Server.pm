@@ -4,6 +4,9 @@ use warnings;
 use base 'Squatting';
 use File::Which;
 our $VERSION = '1.09';
+
+my $vim = which('vim');
+
 our %CONFIG = (
   background_color          => '#112',
   foreground_color          => 'wheat',
@@ -16,7 +19,7 @@ our %CONFIG = (
   sidebar                   => 'right',
   first                     => 'Squatting',
   title                     => '#',
-  vim                       => which('vim'),
+  vim                       => $vim,
   vim_comment               => '#0cf',
   vim_constant              => '#0fc',
   vim_identifier            => '#0aa',
