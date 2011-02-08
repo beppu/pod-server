@@ -1,7 +1,7 @@
 package Pod::Server;
 use strict;
 use warnings;
-use base 'Squatting';
+use Squatting;
 use File::Which;
 our $VERSION = '1.10';
 
@@ -47,7 +47,6 @@ sub init {
 package Pod::Server::Controllers;
 use strict;
 use warnings;
-use Squatting ':controllers';
 use File::Basename;
 use File::Find;
 use File::Which;
@@ -67,6 +66,7 @@ our %perl_modules;
 our @perl_modules;
 sub scan {
   no warnings;
+  warn "scanning for POD...\n";
 
   %perl_basepods = map {
     my ($file, $path, $suffix) = fileparse($_, ".pod");
@@ -258,7 +258,6 @@ our @C = (
 package Pod::Server::Views;
 use strict;
 use warnings;
-use Squatting ':views';
 use Data::Dump 'pp';
 use HTML::AsSubs;
 use Pod::Simple;
