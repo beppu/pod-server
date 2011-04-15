@@ -93,8 +93,12 @@ sub scan {
       print "\n";
     },
   }));
-  my $survey     = $search->survey;
-  %perl_modules  = %$survey;
+  my $survey = $search->survey;
+  for (keys %$survey) {
+    my $key = $_;
+    $key =~ s/::/\//g;
+    $perl_modules{$key} = $survey->{$_};
+  }
   @perl_modules  = sort keys %perl_modules;
   @perl_programs = sort keys %perl_programs;
 }
