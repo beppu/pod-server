@@ -98,6 +98,7 @@ sub scan {
       $m =~ s/$inc//;
       $m =~ s/\.\w*$//;
       $m =~ s{^/}{};
+      return if $m =~ /^5/;
       $perl_modules{$m} = $File::Find::name;
     };
     find({ wanted => $pm_or_pod, follow_fast => 1, follow_skip => 2 }, $_);
