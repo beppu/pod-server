@@ -430,7 +430,7 @@ our @V = (
       my $out;
       my $pod = Pod::Simple::HTML->new;
       $pod->index(1);
-      $pod->output_string($out);
+      $pod->output_string(\$out);
       $pod->parse_file($v->{pod_file});
       $out =~ s/^.*<!-- start doc -->//s;
       $out =~ s/<!-- end doc -->.*$//s;
