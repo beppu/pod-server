@@ -353,10 +353,7 @@ our @V = (
       div#pod pre {
         padding: 0.5em;
         border: 1px solid #444;
-        -moz-border-radius-bottomleft: 7px;
-        -moz-border-radius-bottomright: 7px;
-        -moz-border-radius-topleft: 7px;
-        -moz-border-radius-topright: 7px;
+        border-radius: 7px;
       }
       div#pod h1 {
         font-size: 24pt;
