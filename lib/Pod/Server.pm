@@ -562,14 +562,6 @@ It is also quite configurable.  To see all the options run any of the following:
 
   squatting Pod::Server --show-config | perltidy -i 4
 
-=head2 My one regret...
-
-Well, OK.  I have one regret.  I didn't know that L<Pod::Simple::Search>
-existed.  I would've used that to build the list of all the POD on the system
-had I known about it sooner than just now (2008-07-06).  This just goes to show
-that it's hard to know what's on CPAN, let alone your own system.  I guess you
-really have to develop the habit of looking.
-
 
 =head1 API
 
