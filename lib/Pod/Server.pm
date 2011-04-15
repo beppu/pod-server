@@ -4,6 +4,7 @@ use warnings;
 use Squatting;
 use File::Which;
 our $VERSION = '1.10';
+$| = 1;
 
 my $vim = which('vim');
 
@@ -51,6 +52,8 @@ use File::Basename;
 use File::Find;
 use File::Which;
 use Config;
+use aliased 'Pod::Simple::Search';
+use aliased 'Squatting::H';
 
 # skip files we've already seen
 my %already_seen;
@@ -68,12 +71,6 @@ sub scan {
   no warnings;
   warn "scanning for POD...\n";
 
-  %perl_basepods = map {
-    my ($file, $path, $suffix) = fileparse($_, ".pod");
-    $already_seen{$_} = 1;
-    ($file => $_);
-  } glob "$Config{installprivlib}/pod/*.pod";
-
   if ($Config{man1ext} ne "1") {
     %perl_programs = map {
       my ($file, $path, $suffix) = fileparse($_, qr/\.$Config{man1ext}.*$/);
@@ -86,25 +83,19 @@ sub scan {
     );
   }
 
-  for (@INC) {
-    next if $_ eq ".";
-    my $inc = $_;
-    my $pm_or_pod = sub {
-      my $m = $File::Find::name;
-      return if -d $m;
-      return unless /\.(pm|pod)$/;
-      return if $already_seen{$m};
-      $already_seen{$m} = 1;
-      $m =~ s/$inc//;
-      $m =~ s/\.\w*$//;
-      $m =~ s{^/}{};
-      return if $m =~ /^5/;
-      $perl_modules{$m} = $File::Find::name;
-    };
-    find({ wanted => $pm_or_pod, follow_fast => 1, follow_skip => 2 }, $_);
-  }
-  my %h = map { $_ => 1 } ( keys %perl_modules, keys %perl_basepods);
-  @perl_modules  = sort keys %h;
+  my $search = Search->new;
+  $search->limit_glob('*');
+  $search->progress(H->new({
+    reach => sub {
+      print ".";
+    },
+    done => sub {
+      print "\n";
+    },
+  }));
+  my $survey     = $search->survey;
+  %perl_modules  = %$survey;
+  @perl_modules  = sort keys %perl_modules;
   @perl_programs = sort keys %perl_programs;
 }
 %already_seen = ();
