@@ -1,3 +1,7 @@
+
+1.12 Fri Apr 29 21:11:05 PDT 2011
+  - require latest Squatting
+
 1.11 Wed Apr 27 04:39:32 PDT 2011
   - updated to work w/ Squatting 0.80
   - use Pod::Simple::Search to find modules

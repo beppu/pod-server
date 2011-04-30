@@ -8,7 +8,7 @@ WriteMakefile (
   ABSTRACT_FROM => 'lib/Pod/Server.pm',
   EXE_FILES     => [ 'bin/pod_server' ],
   PREREQ_PM     => {
-    'Squatting'           => 0.60,
+    'Squatting'           => 0.81,
     'Pod::Simple::HTML'   => 0,
     'HTML::AsSubs'        => 0,
     'File::Which'         => 0,
