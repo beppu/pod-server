@@ -319,6 +319,18 @@ our @V = (
       }
       h1, h2, h3, h4 {
         margin-left: -1em;
+        margin-bottom: 4px;
+      }
+      dl {
+        margin: 0;
+        padding: 0;
+      }
+      dt {
+        margin: 1em 0 1em 1em;
+      }
+      dd {
+        margin: -0.75em 0 0 2em;
+        padding: 0;
       }
       em {
         padding: 0.25em;
@@ -372,6 +384,7 @@ our @V = (
         border-bottom: 2px solid $C->{a_hover_foreground_color};
       }
       div#pod p {
+        margin: 0.75em 0 1em 0;
         line-height: 1.4em;
       }
     |},
