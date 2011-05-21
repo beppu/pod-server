@@ -10,9 +10,11 @@ WriteMakefile (
   PREREQ_PM     => {
     'Squatting'           => 0.81,
     'Pod::Simple::HTML'   => 0,
+    'Pod::Simple::Search' => 0,
     'HTML::AsSubs'        => 0,
     'File::Which'         => 0,
     'Text::VimColor'      => 0,
+    'aliased'             => 0,
   },
 );
 
