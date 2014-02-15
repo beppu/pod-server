@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Squatting;
 use File::Which;
-our $VERSION = '1.12';
+our $VERSION = '1.13';
 $| = 1;
 
 my $vim = which('vim');
