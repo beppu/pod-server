@@ -93,7 +93,16 @@ sub scan {
       print "\n";
     },
   }));
-  my $survey = $search->survey;
+
+  my $survey;
+  if (scalar(@{$CONFIG{tree}})) {
+    $search->inc(0);
+    $survey = $search->survey(@{$CONFIG{tree}});
+  }
+  else {
+    $survey = $search->survey;
+  }
+
   for (keys %$survey) {
     my $key = $_;
     $key =~ s/::/\//g;
