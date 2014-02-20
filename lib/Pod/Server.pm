@@ -20,6 +20,7 @@ our %CONFIG = (
   sidebar                   => 'right',
   first                     => 'Squatting',
   title                     => '#',
+  tree                      => [],
   vim                       => $vim,
   vim_comment               => '#0cf',
   vim_constant              => '#0fc',
